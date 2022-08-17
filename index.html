@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" />
+    <link rel="stylesheet" href="src/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>The weather App</h1>
+      <div class="subcontainer">
+        <div class="row">
+          <div class="col-1 big-emoji">🌍</div>
+          <div class="col searchbar">
+            <form action="search" class="search-form">
+              <label for="searchbar">The weather in:</label>
+              <input type="text" id="search-city" />
+              <input type="submit" value="Search" class="main-buttons search-button">
+              <button class="main-buttons current-location">
+                Current Location
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="row main-results">
+          <div class="col-7">
+            <h2><span id="city-name">Biarritz : </span><span id="today-date"></span></h2>
+            <span class="main main-temperature">32 ˚C</span>
+          </div>
+          <div class="col-5 big-emoji">☀️</div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="card mb-3">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <p class="big-emoji">💧</p>
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h3 class="card-title">Precipitation</h3>
+                    <p class="card-text main main-humidity">69%</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card mb-3">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <p class="big-emoji">💨</p>
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h3 class="card-title">Wind</h3>
+                    <p class="card-text main main-wind">5km/h</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <h4>In the next few days</h4>
+
+          <div class="card" style="max-width: 20%">
+            <p class="forecast-emoji">🌤</p>
+            <div class="card-body">
+              <h4 class="forecast">31˚C</h4>
+              <p class="forecast-label">Tomorrow</p>
+            </div>
+          </div>
+          <div class="card" style="max-width: 20%">
+            <p class="forecast-emoji">⛅️</p>
+            <div class="card-body">
+              <h4 class="forecast">30˚C</h4>
+              <p class="forecast-label">Wednesday</p>
+            </div>
+          </div>
+          <div class="card" style="max-width: 20%">
+            <p class="forecast-emoji">⛅️</p>
+            <div class="card-body">
+              <h4 class="forecast">30˚C</h4>
+              <p class="forecast-label">Thursday</p>
+            </div>
+          </div>
+          <div class="card" style="max-width: 20%">
+            <p class="forecast-emoji">🌩</p>
+            <div class="card-body">
+              <h4 class="forecast">32˚C</h4>
+              <p class="forecast-label">Friday</p>
+            </div>
+          </div>
+          <div class="card" style="max-width: 20%">
+            <p class="forecast-emoji">☀️</p>
+            <div class="card-body">
+              <h4 class="forecast">32˚C</h4>
+              <p class="forecast-label">Saturday</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">@credits</div>
+    </div>
+    <script src="src/script.js"></script>
+  </body>
+
+</html>
