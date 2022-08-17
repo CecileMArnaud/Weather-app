@@ -15,6 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet" />
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://kit.fontawesome.com/1495522d3c.js" crossorigin="anonymous"></script>
 
   </head>
 
@@ -24,12 +25,12 @@
       <div class="subcontainer">
         <div class="row">
           <div class="col-1 big-emoji">🌍</div>
-          <div class="col searchbar">
+          <div class="col-9 searchbar">
             <form action="search" class="search-form">
               <label for="searchbar">The weather in:</label>
               <input type="text" id="search-city" />
-              <input type="submit" value="Search" class="main-buttons search-button">
-              <button class="main-buttons current-location">
+              <input type="submit" value="Search" class="btn btn-primary main-buttons search-button">
+              <button class="btn btn-secondary main-buttons current-location">
                 Current Location
               </button>
             </form>
@@ -37,8 +38,10 @@
         </div>
         <div class="row main-results">
           <div class="col-7">
-            <h2><span id="city-name">Biarritz : </span><span id="today-date"></span></h2>
-            <span class="main main-temperature">32 ˚C</span>
+            <h2><span id="city-name">Weather loading   <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+</span></h2>
+            <div id="today-date"></div>
+            <div class="main main-temperature">#</div>
           </div>
           <div class="col-5 big-emoji">☀️</div>
         </div>
@@ -52,7 +55,7 @@
                 <div class="col-md-8">
                   <div class="card-body">
                     <h3 class="card-title">Precipitation</h3>
-                    <p class="card-text main main-humidity">69%</p>
+                    <p class="card-text main main-humidity">#</p>
                   </div>
                 </div>
               </div>
@@ -67,7 +70,7 @@
                 <div class="col-md-8">
                   <div class="card-body">
                     <h3 class="card-title">Wind</h3>
-                    <p class="card-text main main-wind">5km/h</p>
+                    <p class="card-text main main-wind">#</p>
                   </div>
                 </div>
               </div>
