@@ -13,9 +13,9 @@ function getLocation(position) {
 
 //to retrieve the weather information and the date from the API
 function getWeather(response) {
-	console.log(response);
 	formatDate(response.data.dt);
 	let temperature = response.data.main.temp;
+	celsiusTemperature = response.data.main.temp;
 	let humidity = response.data.main.humidity;
 	let wind = response.data.wind.speed;
 	let todayDate = document.querySelector("#today-date");
@@ -24,11 +24,19 @@ function getWeather(response) {
 	let cityName = document.querySelector("#city-name");
 	cityName.innerHTML = `${city}`;
 	let mainTemperature = document.querySelector(".main-temperature");
-	mainTemperature.innerHTML = `${Math.round(temperature)} ˚C`;
+	mainTemperature.innerHTML = `${Math.round(temperature)}`;
 	let mainHumidity = document.querySelector(".main-humidity");
 	mainHumidity.innerHTML = `${Math.round(humidity)} %`;
 	let mainWind = document.querySelector(".main-wind");
 	mainWind.innerHTML = `${Math.round(wind)}km/h`;
+	let mainIcon = document.querySelector(".main-icon img");
+	mainIcon.setAttribute(
+		"src",
+		`http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+	);
+	mainIcon.setAttribute("alt", `${response.data.weather[0].description}`);
+	let mainDescription = document.querySelector(".main-description");
+	mainDescription.innerHTML = response.data.weather[0].description;
 }
 
 //to format the date into a simplified version
@@ -65,6 +73,23 @@ function searching(event) {
 	axios.get(apiUrl).then(getWeather);
 }
 
+function showFTemperature(event) {
+	event.preventDefault();
+	celsiusLink.classList.remove("active");
+	fahrenheitLink.classList.add("active");
+	let mainTemperature = document.querySelector(".main-temperature");
+	let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+	mainTemperature.innerHTML = Math.round(fahrenheitTemperature);
+}
+
+function showCTemperature(event) {
+	event.preventDefault();
+	celsiusLink.classList.add("active");
+	fahrenheitLink.classList.remove("active");
+	let mainTemperature = document.querySelector(".main-temperature");
+	mainTemperature.innerHTML = Math.round(celsiusTemperature);
+}
+
 //some default global variables
 let lat = "43.4801";
 let lon = "-1.5556";
@@ -84,3 +109,11 @@ searchForm.addEventListener("submit", searching);
 // to get back to the default current location after clicking on the button
 let myLocation = document.querySelector(".current-location");
 myLocation.addEventListener("click", getDefault);
+
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", showFTemperature);
+
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", showCTemperature);
+
+let celsiusTemperature = null;
