@@ -1,3 +1,29 @@
+//to format the date into a simplified version
+function formatDate(timestamp) {
+	let date = new Date(timestamp * 1000);
+	let dayName = [
+		"Sunday",
+		"Monday",
+		"Tuesday",
+		"Wednesday",
+		"Thursday",
+		"Friday",
+		"Saturday",
+	];
+	currentDayName = dayName[date.getDay()];
+	if (date.getHours() < 10) {
+		currentHour = `0${date.getHours()}`;
+	} else {
+		currentHour = date.getHours();
+	}
+
+	if (date.getMinutes() < 10) {
+		currentMinute = `0${date.getMinutes()}`;
+	} else {
+		currentMinute = date.getMinutes();
+	}
+}
+
 //to get the default location
 function getDefault() {
 	navigator.geolocation.getCurrentPosition(getLocation);
@@ -9,6 +35,19 @@ function getLocation(position) {
 	lon = position.coords.longitude;
 	let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
 	axios.get(url).then(getWeather);
+}
+
+//to retrieve the search value and pass it into the API request
+function searching(event) {
+	event.preventDefault();
+	let searchCity = document.querySelector("#search-city");
+	let apiUrl = `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&q=${searchCity.value}&units=metric`;
+	axios.get(apiUrl).then(getWeather);
+}
+
+function getForecast(coordinates) {
+	let coordinatesURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}`;
+	axios.get(coordinatesURL).then(showForecast);
 }
 
 //to retrieve the weather information and the date from the API
@@ -37,40 +76,7 @@ function getWeather(response) {
 	mainIcon.setAttribute("alt", `${response.data.weather[0].description}`);
 	let mainDescription = document.querySelector(".main-description");
 	mainDescription.innerHTML = response.data.weather[0].description;
-}
-
-//to format the date into a simplified version
-function formatDate(timestamp) {
-	let date = new Date(timestamp * 1000);
-	let dayName = [
-		"Sunday",
-		"Monday",
-		"Tuesday",
-		"Wednesday",
-		"Thursday",
-		"Friday",
-		"Saturday",
-	];
-	currentDayName = dayName[date.getDay()];
-	if (date.getHours() < 10) {
-		currentHour = `0${date.getHours()}`;
-	} else {
-		currentHour = date.getHours();
-	}
-
-	if (date.getMinutes() < 10) {
-		currentMinute = `0${date.getMinutes()}`;
-	} else {
-		currentMinute = date.getMinutes();
-	}
-}
-
-//to retrieve the search value and pass it into the API request
-function searching(event) {
-	event.preventDefault();
-	let searchCity = document.querySelector("#search-city");
-	let apiUrl = `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&q=${searchCity.value}&units=metric`;
-	axios.get(apiUrl).then(getWeather);
+	getForecast(response.data.coord);
 }
 
 function showFTemperature(event) {
@@ -88,6 +94,27 @@ function showCTemperature(event) {
 	fahrenheitLink.classList.remove("active");
 	let mainTemperature = document.querySelector(".main-temperature");
 	mainTemperature.innerHTML = Math.round(celsiusTemperature);
+}
+
+//show Forecast HTML
+function showForecast() {
+	let forecastElement = document.querySelector("#forecast");
+	let forecastHTML = `<div class="row"><h4>In the next few days</h4>`;
+	let days = ["Wed", "Thu", "Fri", "Sat", "Sun"];
+	days.forEach(function (day) {
+		forecastHTML =
+			forecastHTML +
+			`
+		<div class="card" style="max-width: 20%">
+		<p class="forecast-emoji">🌤</p>
+		<div class="card-body">
+		<h4 class="forecast">31˚C</h4>
+		<p class="forecast-label">${day}</p>
+		</div>
+		</div>`;
+	});
+	forecastHTML = forecastHTML + `</div>`;
+	forecastElement.innerHTML = forecastHTML;
 }
 
 //some default global variables
