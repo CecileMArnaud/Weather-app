@@ -135,8 +135,8 @@ function showForecast(response) {
 }
 
 //some default global variables
-let lat = "43.4801";
-let lon = "-1.5556";
+let lat = "";
+let lon = "";
 let city = "Select a city...";
 let apiKey = "3834107558d00b81fea1969225682a38";
 let currentDayName = "Monday";
